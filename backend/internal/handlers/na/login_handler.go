@@ -12,5 +12,7 @@ import (
 //
 
 func PwdLoginHandler(ctx *gin.Context) {
-	response.JsonSuccessData(ctx, "成功", gin.H{})
+	response.JsonSuccessData(ctx, "成功", gin.H{
+		"accessToken": "wulinlin",
+	})
 }

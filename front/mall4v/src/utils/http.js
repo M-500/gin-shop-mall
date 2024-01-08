@@ -45,7 +45,7 @@ http.interceptors.response.use(
     }
     const res = response.data
     // 00000 请求成功
-    if (res.code === '00000' || res.code === 'A00002') {
+    if (res.code === 200) {
       return res
     }
     // A00001 用于直接显示提示用户的错误,内容由输入决定
