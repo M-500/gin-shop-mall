@@ -15,5 +15,6 @@ func InitNaRouter(router *gin.RouterGroup) {
 	naRouter := router.Group("/")
 	{
 		naRouter.GET("captcha", na.GenerateCaptchaHandler)
+		naRouter.POST("login", na.PwdLoginHandler)
 	}
 }

@@ -60,6 +60,7 @@ const pwdLogin = () => {
     router.replace({ name: 'home' })
   }).catch(() => {
     isSubmit = false
+    router.replace({ name: 'home' })
   })
 }
 

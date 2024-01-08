@@ -1,6 +1,9 @@
 package na
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
 
 //
 // @Description
@@ -9,5 +12,7 @@ import "github.com/gin-gonic/gin"
 //
 
 func PwdLoginHandler(ctx *gin.Context) {
-
+	ctx.JSON(http.StatusOK, gin.H{
+		"accessToken": "hahahaah",
+	})
 }
