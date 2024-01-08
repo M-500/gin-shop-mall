@@ -1,8 +1,8 @@
 package na
 
 import (
+	"backend/pkg/response"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 //
@@ -12,7 +12,5 @@ import (
 //
 
 func PwdLoginHandler(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"accessToken": "hahahaah",
-	})
+	response.JsonSuccessData(ctx, "成功", gin.H{})
 }
