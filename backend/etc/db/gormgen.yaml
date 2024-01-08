@@ -1,0 +1,4 @@
+gorm:
+  packge: models
+  model:
+    output: ./models/model.go
