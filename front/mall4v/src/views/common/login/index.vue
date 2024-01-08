@@ -15,7 +15,6 @@
           :model="dataForm"
           :rules="dataRule"
           status-icon
-          @keyup.enter="dataFormSubmit()"
         >
           <el-form-item prop="userName">
             <el-input
@@ -37,7 +36,7 @@
               <input
                 type="button"
                 value="登录"
-                @click="dataFormSubmit()"
+                @click="pwdLogin()"
               >
             </div>
           </el-form-item>
