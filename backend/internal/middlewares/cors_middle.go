@@ -8,7 +8,6 @@ import (
 
 func CorsMiddleWare() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Printf("使用中间件")
 		method := c.Request.Method
 		origin := c.Request.Header.Get("Origin")
 		c.Header("Access-Control-Allow-Origin", origin)
