@@ -11,3 +11,7 @@ type BaseModel struct {
 	UpdatedAt time.Time      `gorm:"column:update_at;comment:记录更新时间" json:"-"`
 	DeletedAt gorm.DeletedAt `json:"-"`
 }
+
+var ModelList = []interface{}{
+	&SysUserModel{},
+}
