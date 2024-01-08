@@ -1,15 +1,15 @@
 package service
 
-import "backend/internal/repositories"
+import "backend/internal/repositories/users_repositories"
 
 type IUserService interface {
 }
 
 type UserService struct {
-	repo repositories.IUserRepository
+	repo users_repositories.IUserRepository
 }
 
-func NewUserService(r repositories.IUserRepository) IUserService {
+func NewUserService(r users_repositories.IUserRepository) IUserService {
 	return &UserService{
 		repo: r,
 	}

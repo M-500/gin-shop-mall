@@ -1,4 +1,4 @@
-package repositories
+package users_repositories
 
 import "gorm.io/gorm"
 
