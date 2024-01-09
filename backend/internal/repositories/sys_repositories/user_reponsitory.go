@@ -1,4 +1,4 @@
-package users_repositories
+package sys_repositories
 
 import (
 	"backend/internal/models"

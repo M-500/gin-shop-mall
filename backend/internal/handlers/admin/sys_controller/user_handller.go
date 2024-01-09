@@ -1,8 +1,7 @@
-package uses_handlers
+package sys_controller
 
 import (
 	"backend/internal/forms"
-	"backend/internal/repositories/users_repositories"
 	"backend/internal/service"
 	"backend/pkg/response"
 	"github.com/gin-gonic/gin"
@@ -14,19 +13,20 @@ import (
 // @Date 2024/1/8 15:18
 //
 
-type UserController struct {
+type SysController struct {
 	userService service.IUserService
+	menuService service.IMenuService
 }
 
-func NewUserController() *UserController {
-	repo := users_repositories.NewUserRepository()
-	return &UserController{
-		userService: service.NewUserService(repo),
+func NewSysController() *SysController {
+	return &SysController{
+		userService: service.NewUserService(),
+		menuService: service.NewMenuService(),
 	}
 }
 
 /* 创建后台用户 */
-func (u *UserController) CreateUserHandler(c *gin.Context) {
+func (u *SysController) CreateUserHandler(c *gin.Context) {
 	resp := forms.CreateAdminUserForm{}
 	err := c.ShouldBindJSON(&resp)
 	if err != nil {

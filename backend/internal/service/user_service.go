@@ -5,7 +5,7 @@ import (
 	"backend/internal/dto"
 	"backend/internal/forms"
 	"backend/internal/models"
-	"backend/internal/repositories/users_repositories"
+	"backend/internal/repositories/sys_repositories"
 	"backend/pkg/utils"
 	"errors"
 	"github.com/dgrijalva/jwt-go"
@@ -26,12 +26,12 @@ type IUserService interface {
 }
 
 type UserService struct {
-	repo users_repositories.IUserRepository
+	repo sys_repositories.IUserRepository
 }
 
-func NewUserService(r users_repositories.IUserRepository) IUserService {
+func NewUserService() IUserService {
 	return &UserService{
-		repo: r,
+		repo: sys_repositories.NewUserRepository(),
 	}
 }
 

@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"backend/internal/handlers/admin/uses_handlers"
+	"backend/internal/handlers/admin/sys_controller"
 	"backend/internal/handlers/na"
 	"github.com/gin-gonic/gin"
 )
@@ -13,11 +13,11 @@ import (
 //
 
 func InitNaRouter(router *gin.RouterGroup) {
-	UserController := uses_handlers.NewUserController()
+	sysController := sys_controller.NewSysController()
 	naRouter := router.Group("/")
 	{
 		naRouter.GET("captcha", na.GenerateCaptchaHandler)
 		naRouter.POST("login", na.PwdLoginHandler)
-		naRouter.POST("register", UserController.CreateUserHandler)
+		naRouter.POST("register", sysController.CreateUserHandler)
 	}
 }
