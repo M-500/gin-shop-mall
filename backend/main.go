@@ -1,8 +1,7 @@
 package main
 
 import (
-	"backend/internal/config"
-	"backend/internal/router"
+	"backend/internal/core"
 	"context"
 	"flag"
 	"fmt"
@@ -16,14 +15,16 @@ var configFile = flag.String("f", "etc/dev.yaml", "the config file")
 
 func main() {
 	flag.Parse()
-	serverCfg := config.MustLoadCfg(*configFile, "YML")
-	fmt.Printf(serverCfg.Name)
+	//serverCfg := config.MustLoadCfg(*configFile, "YML")
+	//fmt.Printf(serverCfg.Name)
 
-	addr := fmt.Sprintf("%s:%d", serverCfg.Host, serverCfg.Port)
-	r := router.SetUpRouter()
+	//addr := fmt.Sprintf("%s:%d", serverCfg.Host, serverCfg.Port)
+
+	serverSvc := core.NewServiceContext(*configFile)
+	addr := fmt.Sprintf("%s:%d", serverSvc.Config.Host, serverSvc.Config.Port)
 	// 后台异步启动gin服务
 	go func() {
-		err := r.Run(addr)
+		err := serverSvc.Server.Run(addr)
 		if err != nil {
 			panic(err)
 		}
