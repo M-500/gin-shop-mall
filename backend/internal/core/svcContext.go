@@ -14,13 +14,15 @@ import (
 	"time"
 )
 
+var ServerContextInstance *ServiceContext
+
 type ServiceContext struct {
 	Config    *config.Config
 	Server    *gin.Engine
 	MySQLConn *gorm.DB
 }
 
-func NewServiceContext(path string) (svc *ServiceContext) {
+func NewServiceContext(path string) {
 	cfg := config.MustLoadCfg(path, "YAML")
 	gormLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags),
@@ -42,10 +44,13 @@ func NewServiceContext(path string) (svc *ServiceContext) {
 		panic(err)
 		return
 	}
-	return &ServiceContext{
+	ServerContextInstance = &ServiceContext{
 		Config:    cfg,                  //
 		MySQLConn: databasenani.GetDB(), // 集成MySQL查询对象
-		//MysqlConn: NewSQLiteConn(), // 集成SQLite查询对象
-		Server: router.SetUpRouter(),
+		Server:    router.SetUpRouter(),
 	}
+}
+
+func GetSvcContext() *ServiceContext {
+	return ServerContextInstance
 }

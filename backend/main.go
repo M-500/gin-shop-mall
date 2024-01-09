@@ -15,19 +15,13 @@ var configFile = flag.String("f", "etc/dev.yaml", "the config file")
 
 func main() {
 	flag.Parse()
-	//serverCfg := config.MustLoadCfg(*configFile, "YML")
-	//fmt.Printf(serverCfg.Name)
-
-	//addr := fmt.Sprintf("%s:%d", serverCfg.Host, serverCfg.Port)
-
-	serverSvc := core.NewServiceContext(*configFile)
+	core.NewServiceContext(*configFile)
+	serverSvc := core.GetSvcContext()
+	fmt.Println("初始化server完成")
 	addr := fmt.Sprintf("%s:%d", serverSvc.Config.Host, serverSvc.Config.Port)
 	// 后台异步启动gin服务
 	go func() {
-		err := serverSvc.Server.Run(addr)
-		if err != nil {
-			panic(err)
-		}
+		panic(serverSvc.Server.Run(addr))
 	}()
 
 	// 后台协程监控系统负载情况

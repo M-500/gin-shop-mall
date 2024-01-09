@@ -2,6 +2,9 @@ package users_repositories
 
 import (
 	"backend/internal/models"
+	databasenani "backend/pkg/database"
+	"errors"
+	"fmt"
 	"gorm.io/gorm"
 )
 
@@ -19,9 +22,10 @@ type UserRepository struct {
 	DB *gorm.DB
 }
 
-func NewUserRepository(db *gorm.DB) IUserRepository {
+func NewUserRepository() IUserRepository {
+	fmt.Println("调用NewUserRepository", databasenani.GetDB())
 	return &UserRepository{
-		DB: db,
+		DB: databasenani.GetDB(),
 	}
 }
 func (u *UserRepository) Get(uid int64) (*models.SysUserModel, error) {
@@ -31,22 +35,32 @@ func (u *UserRepository) Get(uid int64) (*models.SysUserModel, error) {
 		return nil, tx.Error
 	}
 	if tx.RowsAffected < 1 {
-		return nil, nil
+		return nil, errors.New("数据不存在")
 	}
 	return &user, nil
 }
 func (u *UserRepository) FindByAccount(account string) (*models.SysUserModel, error) {
 	queryData := models.SysUserModel{}
-	u.DB.Where("username = ?", account).First(&queryData)
-
-	return nil, nil
+	tx := u.DB.Where("username = ?", account).First(&queryData)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	if tx.RowsAffected < 1 {
+		return nil, errors.New("数据不存在")
+	}
+	return &queryData, nil
 }
 
 func (u *UserRepository) FindByPhone(phone string) (*models.SysUserModel, error) {
 	queryData := models.SysUserModel{}
-	u.DB.Where("phone = ?", phone).First(&queryData)
-
-	return nil, nil
+	tx := u.DB.Where("phone = ?", phone).First(&queryData)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	if tx.RowsAffected < 1 {
+		return nil, errors.New("数据不存在")
+	}
+	return &queryData, nil
 }
 
 func (u *UserRepository) FindAllPager(searchKey string, page, size int) ([]models.SysUserModel, int64, error) {
