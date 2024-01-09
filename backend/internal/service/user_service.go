@@ -8,7 +8,6 @@ import (
 	"backend/internal/repositories/users_repositories"
 	"backend/pkg/utils"
 	"errors"
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 )
@@ -64,7 +63,6 @@ func (s *UserService) Save(data *models.SysUserModel, musColumns ...string) erro
 
 func (s *UserService) CreateUser(data *forms.CreateAdminUserForm) (*models.SysUserModel, error) {
 	account, err := s.repo.FindByAccount(data.UserName)
-	fmt.Println(account, "丢")
 	if err != nil {
 		return nil, err
 	}

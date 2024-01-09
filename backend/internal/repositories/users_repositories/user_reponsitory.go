@@ -3,7 +3,6 @@ package users_repositories
 import (
 	"backend/internal/models"
 	databasenani "backend/pkg/database"
-	"errors"
 	"fmt"
 	"gorm.io/gorm"
 )
@@ -31,22 +30,22 @@ func NewUserRepository() IUserRepository {
 func (u *UserRepository) Get(uid int64) (*models.SysUserModel, error) {
 	user := models.SysUserModel{}
 	tx := u.DB.First(&user, uid)
-	if tx.Error != nil {
+	if tx.Error != nil && tx.Error != gorm.ErrRecordNotFound {
 		return nil, tx.Error
 	}
 	if tx.RowsAffected < 1 {
-		return nil, errors.New("数据不存在")
+		return nil, nil
 	}
 	return &user, nil
 }
 func (u *UserRepository) FindByAccount(account string) (*models.SysUserModel, error) {
 	queryData := models.SysUserModel{}
 	tx := u.DB.Where("username = ?", account).First(&queryData)
-	if tx.Error != nil {
+	if tx.Error != nil && tx.Error != gorm.ErrRecordNotFound {
 		return nil, tx.Error
 	}
 	if tx.RowsAffected < 1 {
-		return nil, errors.New("数据不存在")
+		return nil, nil
 	}
 	return &queryData, nil
 }
@@ -54,11 +53,11 @@ func (u *UserRepository) FindByAccount(account string) (*models.SysUserModel, er
 func (u *UserRepository) FindByPhone(phone string) (*models.SysUserModel, error) {
 	queryData := models.SysUserModel{}
 	tx := u.DB.Where("phone = ?", phone).First(&queryData)
-	if tx.Error != nil {
+	if tx.Error != nil && tx.Error != gorm.ErrRecordNotFound {
 		return nil, tx.Error
 	}
 	if tx.RowsAffected < 1 {
-		return nil, errors.New("数据不存在")
+		return nil, nil
 	}
 	return &queryData, nil
 }
