@@ -13,5 +13,7 @@ type BaseModel struct {
 }
 
 var ModelList = []interface{}{
-	&SysUserModel{},
+	&SysUserModel{}, &UserModel{},
+	&SysMenuModel{}, &SysUserRoleModel{}, &SysMenuModel{},
+	&SysRoleMenu{}, &SysRoleModel{},
 }

@@ -1,5 +1,5 @@
 Name: Mall4-gin
-Host: 192.168.1.51
+Host: 0.0.0.0
 Port: 8085
 local: "zh"
 db:
