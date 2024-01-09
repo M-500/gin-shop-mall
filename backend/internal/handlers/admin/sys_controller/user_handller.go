@@ -40,3 +40,8 @@ func (u *SysController) CreateUserHandler(c *gin.Context) {
 	response.JsonSuccessData(c, "成功！", user)
 	return
 }
+
+// 获取用户信息
+func (u *SysController) AdminUserInfo(c *gin.Context) {
+	response.JsonSuccessData(c, "成功！", nil)
+}

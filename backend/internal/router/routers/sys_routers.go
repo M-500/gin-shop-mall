@@ -13,5 +13,6 @@ func InitSysRouter(router *gin.RouterGroup) {
 	naRouter := router.Group("/")
 	{
 		naRouter.GET("/menu/nav", sysController.MenuNavHandler)
+		naRouter.GET("/user/info", sysController.AdminUserInfo)
 	}
 }

@@ -1,6 +1,6 @@
 Name: Mall4-gin
 Host: 0.0.0.0
-Port: 8085
+Port: 8005
 local: "zh"
 db:
   engine: mysql
