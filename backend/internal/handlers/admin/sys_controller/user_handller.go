@@ -42,6 +42,27 @@ func (u *SysController) CreateUserHandler(c *gin.Context) {
 }
 
 // 获取用户信息
+/*
+{
+    "code": "00000",
+    "msg": null,
+    "data": {
+        "userId": 1,
+        "username": "admin",
+        "email": "root@123.com",
+        "mobile": "11111111111",
+        "status": 1,
+        "shopId": 1,
+        "roleIdList": null,
+        "createTime": "2016-11-11 11:11:11"
+    },
+    "version": "mall4j.v230424",
+    "timestamp": null,
+    "sign": null,
+    "success": true,
+    "fail": false
+}
+*/
 func (u *SysController) AdminUserInfo(c *gin.Context) {
 	response.JsonSuccessData(c, "成功！", nil)
 }
