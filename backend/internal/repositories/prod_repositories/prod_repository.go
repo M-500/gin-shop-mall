@@ -26,5 +26,13 @@ func NewProdGroupRepository() IProdGroupRepository {
 	}
 }
 func (repo *ProdGroupRepository) Get(id int64) (*models.ProdTagModel, error) {
-	return nil, nil
+	var query = models.ProdTagModel{}
+	tx := repo.DB.Where("id = ?", id).First(&query)
+	if tx.Error != nil && tx.Error != gorm.ErrRecordNotFound {
+		return nil, tx.Error
+	}
+	if tx.RowsAffected < 1 {
+		return nil, nil
+	}
+	return &query, nil
 }
