@@ -3,7 +3,7 @@ package service
 import (
 	"backend/internal/config"
 	"backend/internal/dto"
-	"backend/internal/forms"
+	"backend/internal/forms/cms_sys_form"
 	"backend/internal/models"
 	"backend/internal/repositories/sys_repositories"
 	"backend/pkg/utils"
@@ -20,9 +20,9 @@ type IUserService interface {
 	Insert(data *models.SysUserModel) error
 	Update(data *models.SysUserModel, musColumns ...string) error
 	Save(data *models.SysUserModel, musColumns ...string) error
-	CreateUser(data *forms.CreateAdminUserForm) (*models.SysUserModel, error)
+	CreateUser(data *cms_sys_form.CreateAdminUserForm) (*models.SysUserModel, error)
 	GenerateToken(id int64, username string) (string, error)
-	AdminLogin(param forms.AdminLoginParam) (*dto.PwdLoginDTO, error)
+	AdminLogin(param cms_sys_form.AdminLoginParam) (*dto.PwdLoginDTO, error)
 }
 
 type UserService struct {
@@ -61,7 +61,7 @@ func (s *UserService) Save(data *models.SysUserModel, musColumns ...string) erro
 	return s.repo.Save(data, musColumns...)
 }
 
-func (s *UserService) CreateUser(data *forms.CreateAdminUserForm) (*models.SysUserModel, error) {
+func (s *UserService) CreateUser(data *cms_sys_form.CreateAdminUserForm) (*models.SysUserModel, error) {
 	account, err := s.repo.FindByAccount(data.UserName)
 	if err != nil {
 		return nil, err
@@ -111,7 +111,7 @@ func (s *UserService) GenerateToken(id int64, username string) (string, error) {
 	return token, nil
 }
 
-func (s *UserService) AdminLogin(param forms.AdminLoginParam) (*dto.PwdLoginDTO, error) {
+func (s *UserService) AdminLogin(param cms_sys_form.AdminLoginParam) (*dto.PwdLoginDTO, error) {
 	account, err := s.FindByAccount(param.UserName)
 	if err != nil {
 		return nil, err

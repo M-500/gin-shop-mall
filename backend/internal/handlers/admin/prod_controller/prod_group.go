@@ -1,5 +1,10 @@
 package prod_controller
 
+import (
+	"backend/internal/forms/cms_prod_form"
+	"github.com/gin-gonic/gin"
+)
+
 //
 // @Description
 // @Author 代码小学生王木木
@@ -67,3 +72,12 @@ http://192.168.1.51:8085/prod/prodTag/page?t=1704805911303&current=1&size=10
     "fail": false
 }
 */
+
+// 获取产品分类列表
+func (p *ProductController) AdminGroupTagList(c *gin.Context) {
+	var queryForm = cms_prod_form.QueryProdTagForm{}
+	err := c.ShouldBindJSON(&queryForm)
+	if err != nil {
+
+	}
+}

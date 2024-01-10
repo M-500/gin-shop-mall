@@ -1,4 +1,4 @@
-package forms
+package cms_sys_form
 
 type AdminLoginParam struct {
 	UserName    string `json:"userName"`

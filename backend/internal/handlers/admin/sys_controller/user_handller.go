@@ -1,33 +1,14 @@
 package sys_controller
 
 import (
-	"backend/internal/forms"
-	"backend/internal/service"
+	"backend/internal/forms/cms_sys_form"
 	"backend/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 
-//
-// @Description
-// @Author 代码小学生王木木
-// @Date 2024/1/8 15:18
-//
-
-type SysController struct {
-	userService service.IUserService
-	menuService service.IMenuService
-}
-
-func NewSysController() *SysController {
-	return &SysController{
-		userService: service.NewUserService(),
-		menuService: service.NewMenuService(),
-	}
-}
-
 /* 创建后台用户 */
 func (u *SysController) CreateUserHandler(c *gin.Context) {
-	resp := forms.CreateAdminUserForm{}
+	resp := cms_sys_form.CreateAdminUserForm{}
 	err := c.ShouldBindJSON(&resp)
 	if err != nil {
 		return

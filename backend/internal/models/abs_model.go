@@ -16,4 +16,6 @@ var ModelList = []interface{}{
 	&SysUserModel{}, &UserModel{},
 	&SysMenuModel{}, &SysUserRoleModel{}, &SysMenuModel{},
 	&SysRoleMenu{}, &SysRoleModel{},
+
+	&ProdTagModel{},
 }
