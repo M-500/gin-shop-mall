@@ -1,7 +1,6 @@
 package dto
 
 import (
-	"gorm.io/gorm"
 	"time"
 )
 
@@ -16,14 +15,12 @@ type PwdLoginDTO struct {
 }
 
 type UserInfoDTO struct {
-	CreatedAt   time.Time      `json:"createdAt"`
-	UpdatedAt   time.Time      `json:"updatedAt"`
-	DeletedAt   gorm.DeletedAt `json:"deletedAt"`
-	Username    string         `json:"username"`
-	Password    string         `json:"password"`
-	Email       string         `json:"email"`
-	Mobile      string         `json:"mobile"`
-	Status      int8           `json:"status"`
-	CreatUserId int64          `json:"creatUserId"`
-	ShopId      int64          `json:"shopId"`
+	UserId    int64     `json:"userId"`
+	CreatedAt time.Time `json:"createdTime"`
+	UpdatedAt time.Time `json:"updatedTime"`
+	Username  string    `json:"username"`
+	Email     string    `json:"email"`
+	Mobile    string    `json:"mobile"`
+	Status    int8      `json:"status"`
+	ShopId    int64     `json:"shopId"`
 }

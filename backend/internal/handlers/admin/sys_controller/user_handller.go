@@ -1,6 +1,7 @@
 package sys_controller
 
 import (
+	"backend/internal/dto"
 	"backend/internal/forms/cms_sys_form"
 	"backend/pkg/constant"
 	"backend/pkg/response"
@@ -46,11 +47,20 @@ func (u *SysController) CreateUserHandler(c *gin.Context) {
 }
 */
 func (u *SysController) AdminUserInfo(c *gin.Context) {
-	//var res dto.UserInfoDTO
+	var res dto.UserInfoDTO
 	user, err := u.userService.Get(c.GetInt64(constant.JWT_INFO_UID))
 	if err != nil {
 		response.JsonFailMsg(c, err.Error())
 		return
 	}
-	response.JsonSuccessData(c, "成功！", user)
+	res.UserId = user.ID
+	res.Username = user.Username
+	res.CreatedAt = user.CreatedAt
+	res.UpdatedAt = user.UpdatedAt
+	res.Username = user.Username
+	res.Email = user.Email
+	res.Mobile = user.Mobile
+	res.Status = user.Status
+	res.ShopId = user.ShopId
+	response.JsonSuccessData(c, "", res)
 }
