@@ -1,7 +1,9 @@
 package prod_controller
 
 import (
+	"backend/internal/dto"
 	"backend/internal/forms/cms_prod_form"
+	"backend/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 
@@ -80,4 +82,7 @@ func (p *ProductController) AdminGroupTagList(c *gin.Context) {
 	if err != nil {
 
 	}
+	var resp dto.ProdTagListDTO
+
+	response.JsonSuccessData(c, "", resp)
 }
