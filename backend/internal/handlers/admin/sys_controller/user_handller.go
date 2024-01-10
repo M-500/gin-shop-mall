@@ -2,6 +2,7 @@ package sys_controller
 
 import (
 	"backend/internal/forms/cms_sys_form"
+	"backend/pkg/constant"
 	"backend/pkg/response"
 	"github.com/gin-gonic/gin"
 )
@@ -45,5 +46,11 @@ func (u *SysController) CreateUserHandler(c *gin.Context) {
 }
 */
 func (u *SysController) AdminUserInfo(c *gin.Context) {
-	response.JsonSuccessData(c, "成功！", nil)
+	//var res dto.UserInfoDTO
+	user, err := u.userService.Get(c.GetInt64(constant.JWT_INFO_UID))
+	if err != nil {
+		response.JsonFailMsg(c, err.Error())
+		return
+	}
+	response.JsonSuccessData(c, "成功！", user)
 }
