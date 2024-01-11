@@ -24,12 +24,3 @@ type ProdTagDto struct {
 	Style     int            `json:"style"`
 	Seq       int            `json:"seq"`
 }
-
-type ProdTagListDTO struct {
-	Current int64
-	Orders  []interface{}
-	Pages   int64
-	Records []ProdTagDto
-	Size    int64
-	Total   int64
-}
