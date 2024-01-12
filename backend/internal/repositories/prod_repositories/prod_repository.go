@@ -19,6 +19,7 @@ type IProdGroupRepository interface {
 	Insert(*models.ProdTagModel) error
 	Update(data *models.ProdTagModel, musColumns ...string) error
 	Save(data *models.ProdTagModel, musColumns ...string) error
+	Delete(uid int64) error
 }
 
 type ProdGroupRepository struct {
@@ -76,4 +77,8 @@ func (repo *ProdGroupRepository) Save(data *models.ProdTagModel, musColumns ...s
 		return repo.Update(data, musColumns...)
 	}
 	return repo.Insert(data)
+}
+
+func (repo *ProdGroupRepository) Delete(uid int64) error {
+	return repo.Delete(uid)
 }
