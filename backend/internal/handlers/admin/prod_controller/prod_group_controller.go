@@ -82,7 +82,27 @@ func (p *ProductController) AdminGroupTagList(c *gin.Context) {
 	if err != nil {
 
 	}
-	var resp dto.ProdTagListDTO
+	var resp dto.ProdTagDto
+	list, i, err := p.prodTagService.QueryProdTagList(queryForm.Title, int(queryForm.Status), int(queryForm.Size), int(queryForm.Current))
+	if err != nil {
 
+	}
+	resp.Total = i
+	for _, item := range list {
+		temp := dto.ProdTagRecord{
+			ID:        item.ID,
+			CreatedAt: item.CreatedAt,
+			UpdatedAt: item.UpdatedAt,
+			DeletedAt: item.DeletedAt,
+			Title:     item.Title,
+			ShopId:    item.ShopId,
+			Status:    item.Status,
+			IsDefault: item.IsDefault,
+			ProdCount: item.ProdCount,
+			Style:     item.Style,
+			Seq:       item.Seq,
+		}
+		resp.Records = append(resp.Records, temp)
+	}
 	response.JsonSuccessData(c, "", resp)
 }
