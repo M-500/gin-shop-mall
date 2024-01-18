@@ -12,7 +12,12 @@ func InitSysRouter(router *gin.RouterGroup) {
 	sysController := sys_controller.NewSysController()
 	naRouter := router.Group("/")
 	{
-		naRouter.GET("/menu/nav", sysController.MenuNavHandler)
-		naRouter.GET("/user/info", sysController.AdminUserInfo)
+		naRouter.GET("/menu/nav", sysController.MenuNavHandler) // 获取用户权限信息
+		naRouter.GET("/user/info", sysController.AdminUserInfo) // 获取用户信息
 	}
+	// 产品管理相关接口
+	{
+
+	}
+	//
 }

@@ -76,7 +76,7 @@ http://192.168.1.51:8085/prod/prodTag/page?t=1704805911303&current=1&size=10
 */
 
 // 获取产品分类列表
-func (p *ProductController) AdminGroupTagList(c *gin.Context) {
+func (p *ProductControllerGroup) AdminProdGroupTagList(c *gin.Context) {
 	var queryForm = cms_prod_form.QueryProdTagForm{}
 	err := c.ShouldBindJSON(&queryForm)
 	if err != nil {

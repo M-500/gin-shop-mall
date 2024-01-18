@@ -14,7 +14,7 @@ func SetUpRouter() *gin.Engine {
 
 	routers.InitNaRouter(naRouter)
 
-	sysRouter := Router.Group("/sys")
+	sysRouter := Router.Group("/")
 	routers.InitSysRouter(sysRouter)
 	return Router
 }
