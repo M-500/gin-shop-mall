@@ -3,8 +3,8 @@ package service
 import (
 	"backend/internal/config"
 	"backend/internal/dto"
+	"backend/internal/entity"
 	"backend/internal/forms/cms_sys_form"
-	"backend/internal/models"
 	"backend/internal/repositories/sys_repositories"
 	"backend/pkg/utils"
 	"errors"
@@ -13,14 +13,14 @@ import (
 )
 
 type IUserService interface {
-	Get(uid int64) (*models.SysUserModel, error)
-	FindByAccount(account string) (*models.SysUserModel, error)
-	FindByPhone(phone string) (*models.SysUserModel, error)
-	FindAllPager(searchKey string, page, size int) ([]models.SysUserModel, int64, error)
-	Insert(data *models.SysUserModel) error
-	Update(data *models.SysUserModel, musColumns ...string) error
-	Save(data *models.SysUserModel, musColumns ...string) error
-	CreateUser(data *cms_sys_form.CreateAdminUserForm) (*models.SysUserModel, error)
+	Get(uid int64) (*entity.SysUser, error)
+	FindByAccount(account string) (*entity.SysUser, error)
+	FindByPhone(phone string) (*entity.SysUser, error)
+	FindAllPager(searchKey string, page, size int) ([]entity.SysUser, int64, error)
+	Insert(data *entity.SysUser) error
+	Update(data *entity.SysUser, musColumns ...string) error
+	Save(data *entity.SysUser, musColumns ...string) error
+	CreateUser(data *cms_sys_form.CreateAdminUserForm) (*entity.SysUser, error)
 	GenerateToken(id int64, username string) (string, error)
 	AdminLogin(param cms_sys_form.AdminLoginParam) (*dto.PwdLoginDTO, error)
 }
@@ -35,33 +35,33 @@ func NewUserService() IUserService {
 	}
 }
 
-func (s *UserService) Get(uid int64) (*models.SysUserModel, error) {
+func (s *UserService) Get(uid int64) (*entity.SysUser, error) {
 	return s.repo.Get(uid)
 }
 
-func (s *UserService) FindByAccount(account string) (*models.SysUserModel, error) {
+func (s *UserService) FindByAccount(account string) (*entity.SysUser, error) {
 	return s.repo.FindByAccount(account)
 }
 
-func (s *UserService) FindByPhone(phone string) (*models.SysUserModel, error) {
+func (s *UserService) FindByPhone(phone string) (*entity.SysUser, error) {
 	return s.repo.FindByPhone(phone)
 }
 
-func (s *UserService) FindAllPager(searchKey string, page, size int) ([]models.SysUserModel, int64, error) {
+func (s *UserService) FindAllPager(searchKey string, page, size int) ([]entity.SysUser, int64, error) {
 	return s.repo.FindAllPager(searchKey, page, size)
 }
 
-func (s *UserService) Insert(data *models.SysUserModel) error {
+func (s *UserService) Insert(data *entity.SysUser) error {
 	return s.repo.Insert(data)
 }
-func (s *UserService) Update(data *models.SysUserModel, musColumns ...string) error {
+func (s *UserService) Update(data *entity.SysUser, musColumns ...string) error {
 	return s.repo.Update(data, musColumns...)
 }
-func (s *UserService) Save(data *models.SysUserModel, musColumns ...string) error {
+func (s *UserService) Save(data *entity.SysUser, musColumns ...string) error {
 	return s.repo.Save(data, musColumns...)
 }
 
-func (s *UserService) CreateUser(data *cms_sys_form.CreateAdminUserForm) (*models.SysUserModel, error) {
+func (s *UserService) CreateUser(data *cms_sys_form.CreateAdminUserForm) (*entity.SysUser, error) {
 	account, err := s.repo.FindByAccount(data.UserName)
 	if err != nil {
 		return nil, err
@@ -73,14 +73,14 @@ func (s *UserService) CreateUser(data *cms_sys_form.CreateAdminUserForm) (*model
 	if err != nil {
 		return nil, errors.New("生成密码失败")
 	}
-	user := models.SysUserModel{
-		Username:    data.UserName,
-		Password:    pwdStr,
-		Email:       "",
-		Mobile:      data.Mobile,
-		Status:      0,
-		CreatUserId: 0,
-		ShopId:      0,
+	user := entity.SysUser{
+		Username:     data.UserName,
+		Password:     pwdStr,
+		Email:        "",
+		Mobile:       data.Mobile,
+		Status:       0,
+		CreateUserID: 0,
+		ShopID:       0,
 	}
 
 	err = s.repo.Insert(&user)
@@ -122,7 +122,7 @@ func (s *UserService) AdminLogin(param cms_sys_form.AdminLoginParam) (*dto.PwdLo
 		return nil, errors.New("密码不正确")
 	}
 	// 生成Token
-	token, err := s.GenerateToken(account.ID, account.Username)
+	token, err := s.GenerateToken(account.UserID, account.Username)
 	if err != nil {
 		return nil, err
 	}

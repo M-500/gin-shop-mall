@@ -1,7 +1,7 @@
 package service
 
 import (
-	"backend/internal/models"
+	"backend/internal/entity"
 	"backend/internal/repositories/prod_repositories"
 )
 
@@ -15,14 +15,14 @@ func NewProdService() *ProdService {
 	}
 }
 
-func (s *ProdService) QueryProdTagList(searchKey string, status int, pageSize, pageNum int) ([]*models.ProdTagModel, int64, error) {
+func (s *ProdService) QueryProdTagList(searchKey string, status int, pageSize, pageNum int) ([]*entity.ProdTag, int64, error) {
 	return s.repo.SearchProdTagPager(searchKey, status, pageSize, pageNum)
 }
 
-func (s *ProdService) AddProdTag(data *models.ProdTagModel, musColumns ...string) error {
+func (s *ProdService) AddProdTag(data *entity.ProdTag, musColumns ...string) error {
 	return s.repo.Save(data, musColumns...)
 }
-func (s *ProdService) Get(id int64) (*models.ProdTagModel, error) {
+func (s *ProdService) Get(id int64) (*entity.ProdTag, error) {
 	return s.repo.Get(id)
 }
 

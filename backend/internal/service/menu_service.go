@@ -1,7 +1,7 @@
 package service
 
 import (
-	"backend/internal/models"
+	"backend/internal/entity"
 	"backend/internal/repositories/sys_repositories"
 )
 
@@ -12,22 +12,22 @@ import (
 //
 
 type IMenuService interface {
-	ListMenuByUserId(userId int64) ([]models.SysMenuModel, error)
+	ListMenuByUserId(userId int64) ([]entity.SysMenu, error)
 }
 
 type MenuService struct {
-	repo sys_repositories.IMenuRepository
+	dao sys_repositories.IMenuRepository
 }
 
 func NewMenuService() IMenuService {
 	return &MenuService{
-		repo: sys_repositories.NewMenuRepository(),
+		dao: sys_repositories.NewMenuRepository(),
 	}
 }
 
-func (s *MenuService) ListMenuByUserId(userId int64) ([]models.SysMenuModel, error) {
-	user := models.SysUserModel{
-		BaseModel: models.BaseModel{ID: userId},
+func (s *MenuService) ListMenuByUserId(id int64) ([]entity.SysMenu, error) {
+	user := entity.SysUser{
+		UserID: id,
 	}
-	return s.repo.ListMenuByUserId(&user)
+	return s.dao.ListMenuByUserId(&user)
 }
